@@ -2,6 +2,8 @@ package tests;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -15,10 +17,10 @@ public class GithubIssueTest {
 
     private WebSteps steps = new WebSteps();
 
-    private static final String github = "https://github.com/",
+    String github = "https://github.com/",
             headerSearch = ".header-search-input",
             repository = "eroshenkoam/allure-example";
-    private static final int issueNumber = 68;
+    int issueNumber = 68;
 
     @BeforeAll
     static void setup() {
@@ -28,6 +30,8 @@ public class GithubIssueTest {
 
     @Test
     public void issueSelenideTest() {
+
+        SelenideLogger.addListener("allure", new AllureSelenide());
 
         open(github);
         $(headerSearch).click();
