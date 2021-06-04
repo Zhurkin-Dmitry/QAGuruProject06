@@ -2,7 +2,6 @@ package tests;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.logevents.SelenideLogger;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -14,10 +13,12 @@ import static io.qameta.allure.Allure.step;
 
 public class GithubIssueTest {
 
-    String github = "https://github.com/",
+    private WebSteps steps = new WebSteps();
+
+    private static final String github = "https://github.com/",
             headerSearch = ".header-search-input",
             repository = "eroshenkoam/allure-example";
-    int issueNumber = 68;
+    private static final int issueNumber = 68;
 
     @BeforeAll
     static void setup() {
@@ -26,8 +27,8 @@ public class GithubIssueTest {
 
 
     @Test
-    void issueSelenideTest() {
-        //SelenideLogger.addListener("allure", new AllureSelenide());
+    public void issueSelenideTest() {
+
         open(github);
         $(headerSearch).click();
         $(headerSearch).sendKeys(repository);
@@ -38,7 +39,7 @@ public class GithubIssueTest {
     }
 
     @Test
-    void issueLambdaTest() {
+    public void issueLambdaTest() {
         step("Открываем сайт Github", () -> {
             open(github);
         });
@@ -59,8 +60,13 @@ public class GithubIssueTest {
     }
 
     @Test
-    void issueWithAnnotationStep() {
+    public void issueWithAnnotationStep() {
 
+        steps.openGithub(github);
+        steps.searchRepository(headerSearch, repository);
+        steps.openRepository(repository);
+        steps.openIssues();
+        steps.searchNum68Repository(issueNumber);
     }
 
 }
