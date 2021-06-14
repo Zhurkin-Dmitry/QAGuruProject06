@@ -44,7 +44,7 @@ public class GithubIssueTest {
 
     @Test
     public void issueLambdaTest() {
-        step("Открываем сайт Github", () -> {
+        step("Открываем сайт Github.com", () -> {
             open(github);
         });
         step("Поиск репозитория", () -> {
@@ -55,10 +55,10 @@ public class GithubIssueTest {
         step("Переходим к репозиторию", () -> {
             $(By.linkText(repository)).click();
         });
-        step("Открытие Issues", () -> {
+        step("Открытие вкладки Issues", () -> {
             $(withText("Issues")).click();
         });
-        step("Проверка существования Issue №68", () -> {
+        step("Проверка существования Issue № 68", () -> {
             $(withText("#" + 68)).should(Condition.exist);
         });
     }
